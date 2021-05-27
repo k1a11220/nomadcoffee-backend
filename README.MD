@@ -5,6 +5,6 @@ NomadCoffee Backend.
 ## User
 
 - [x] Create Account
-- [ ] See Profile
-- [ ] Login
-- [ ] Edit Profile
+- [x] See Profile
+- [x] Login
+- [x] Edit Profile
