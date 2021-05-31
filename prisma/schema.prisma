@@ -18,6 +18,7 @@ model User {
   location  String
   password  String
   avatarURL String?
+  bio       String?
   githubUsername String? @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

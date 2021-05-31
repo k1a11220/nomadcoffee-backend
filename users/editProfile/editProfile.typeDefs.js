@@ -11,9 +11,10 @@ export default gql`
       email: String
       name: String
       location: String
-      avatarURL: String
+      avatarURL: Upload
       githubUsername: String
       password: String
+      bio: String
     ): editProfileResult!
   }
 `;

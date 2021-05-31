@@ -11,5 +11,6 @@ export default gql`
     githubUsername: String
     createdAt: String!
     updatedAt: String!
+    bio: String
   }
 `;
