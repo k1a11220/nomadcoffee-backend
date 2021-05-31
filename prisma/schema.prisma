@@ -20,6 +20,8 @@ model User {
   avatarURL String?
   bio       String?
   githubUsername String? @unique
+  followers User[]   @relation("FollowRelation", references: [id])
+  following User[]   @relation("FollowRelation", references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
