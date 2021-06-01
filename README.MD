@@ -8,3 +8,6 @@ NomadCoffee Backend.
 - [x] See Profile
 - [x] Login
 - [x] Edit Profile
+- [x] Follow
+- [x] Unfollow
+- [x] Search Users
