@@ -3,7 +3,7 @@ import { protectedResolver } from "../users.utils";
 
 export default {
   Mutation: {
-    unFollowUser: protectedResolver(
+    unfollowUser: protectedResolver(
       async (_, { username }, { loggedInUser }) => {
         const ok = await client.user.findUnique({ where: { username } });
         if (!ok) {

@@ -2,6 +2,7 @@ import { createWriteStream } from "fs";
 import bcrypt from "bcrypt";
 import client from "../../client";
 import { protectedResolver } from "../users.utils";
+
 const resolverFn = async (
   _,
   {
@@ -63,13 +64,3 @@ export default {
     editProfile: protectedResolver(resolverFn),
   },
 };
-/*
-          username,
-          email,
-          name,
-          location,
-          avatarURL,
-          githubUsername,
-          password: newPassword,
-          bio,
-*/
