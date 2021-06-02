@@ -3,8 +3,8 @@ dotenv.config();
 import express from "express";
 import logger from "morgan";
 import { ApolloServer } from "apollo-server-express";
-import { typeDefs, resolvers } from "./schema";
-import { getUser, protectResolver } from "./users/users.utils";
+import { typeDefs, resolvers } from "./src/schema";
+import { getUser, protectResolver } from "./src/users/users.utils";
 
 const PORT = process.env.PORT;
 const apollo = new ApolloServer({
