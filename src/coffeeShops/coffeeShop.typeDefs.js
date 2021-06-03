@@ -1,32 +1,31 @@
-import { gql } from "apollo-server-core";
+import { gql } from "apollo-server-express";
 
 export default gql`
+  type CoffeeShopPhoto {
+    id: Int!
+    url: String!
+    CoffeeShop: CoffeeShop
+    createAt: String!
+    updateAt: String!
+  }
   type CoffeeShop {
     id: Int!
     name: String!
     latitude: String
     longitude: String
     user: User!
-    photos: [CoffeeShopPhoto]
+    photos: [CoffeeShopPhoto]!
     categories: [Category]
-    created_at: String!
-    updated_at: String!
+    createAt: String!
+    updateAt: String!
   }
   type Category {
     id: Int!
     name: String!
     slug: String!
     shops: [CoffeeShop]
-    total_shops: Int!
-    created_at: String!
-    updated_at: String!
-  }
-  type CoffeeShopPhoto {
-    id: Int!
-    url: String!
-    shop: CoffeeShop
-    shop_id: String
-    created_at: String!
-    updated_at: String!
+    totalShops: Int
+    createAt: String!
+    updateAt: String!
   }
 `;

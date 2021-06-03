@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-core";
+import { gql } from "apollo-server";
 
 export default gql`
   type createCoffeeShopResult {
@@ -8,10 +8,8 @@ export default gql`
   type Mutation {
     createCoffeeShop(
       name: String!
-      photos: [Upload]
-      lat: String!
-      lon: String!
-      categories: [String]!
-    ): createAccountResult!
+      url: String!
+      category: String!
+    ): createCoffeeShopResult!
   }
 `;

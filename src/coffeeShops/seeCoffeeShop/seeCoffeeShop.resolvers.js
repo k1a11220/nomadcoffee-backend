@@ -2,11 +2,20 @@ import client from "../../client";
 
 export default {
   Query: {
-    seeCoffeeShop: (_, { name }) =>
-      client.user.findUnique({
+    seeCoffeeShop: async (_, { id }) => {
+      const coffeeShop = await client.coffeeShop.findFirst({
         where: {
-          name,
+          id,
         },
-      }),
+      });
+      return coffeeShop;
+    },
+
+    seeCoffeeShops: async (_, { page }) => {
+      return await client.coffeeShop.findMany({
+        take: 5,
+        skip: (page - 1) * 5,
+      });
+    },
   },
 };

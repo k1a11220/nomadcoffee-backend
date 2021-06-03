@@ -1,16 +1,53 @@
 import client from "../client";
 
 export default {
-  Category: {
-    total_shops: ({ name }) =>
-      client.coffeeShop.count({
+  CoffeeShop: {
+    user: ({ userId }) => {
+      return client.user.findUnique({
         where: {
-          categories: {
+          id: userId,
+        },
+      });
+    },
+
+    categories: ({ id }) => {
+      return client.category.findMany({
+        where: {
+          shops: {
             some: {
-              name,
+              id,
             },
           },
         },
-      }),
+      });
+    },
+    photos: () => {
+      return client.coffeeShopPhoto.findMany();
+    },
+  },
+
+  Category: {
+    shops: ({ id }) => {
+      return client.coffeeShop.findMany({
+        where: {
+          categories: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
+    },
+    totalShops: ({ id }) => {
+      return client.coffeeShop.count({
+        where: {
+          categories: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
+    },
   },
 };

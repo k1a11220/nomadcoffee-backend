@@ -1,7 +1,8 @@
-import { gql } from "apollo-server-core";
+import { gql } from "apollo-server";
 
 export default gql`
   type Query {
-    seeCoffeeShop(name: String!): CoffeeShop
+    seeCoffeeShop(id: Int!): CoffeeShop!
+    seeCoffeeShops(page: Int!): [CoffeeShop]!
   }
 `;
