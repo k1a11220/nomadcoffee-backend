@@ -1,51 +1,46 @@
-import { protectedResolver } from "../../users/users.utils";
 import client from "../../client";
-import { createCategoryObj } from "../coffeeShops.utils";
+import { protectedResolver } from "../../users/users.utils";
+import { processCategories, processPhotos } from "../coffeeShop.utils";
 
 export default {
   Mutation: {
     createCoffeeShop: protectedResolver(
-      async (_, { name, url, category }, { loggedInUser }) => {
-        // let = categoryObj = [];
-        // categoryObj is Unique
-        // if (category) {
-        const categoryObj = createCategoryObj(category);
-        // }
-        const shop = await client.coffeeShop.create({
-          data: {
-            name,
-            ...(categoryObj.length > 0 && {
-              categories: {
-                connectOrCreate: categoryObj,
+      async (
+        _,
+        { coffeeShopName, latitude, longitude, categories, photos },
+        { loggedInUser }
+      ) => {
+        try {
+          const shop = await client.coffeeShop.create({
+            data: {
+              name: coffeeShopName,
+              user: {
+                connect: {
+                  id: loggedInUser.id,
+                },
               },
-            }),
-            user: {
-              connect: {
-                id: loggedInUser.id,
-              },
+              ...(latitude && { latitude }),
+              ...(longitude && { longitude }),
+              ...(categories && {
+                categories: {
+                  connectOrCreate: processCategories(categories),
+                },
+              }),
+              ...(photos && {
+                photos: {
+                  connectOrCreate: processPhotos(photos),
+                },
+              }),
             },
-          },
-        });
-
-        const photo = await client.coffeeShopPhoto.create({
-          data: {
-            url,
-            CoffeeShop: {
-              connect: {
-                id: shop.id,
-              },
-            },
-          },
-        });
-
-        if (!shop || !photo) {
-          return {
-            ok: false,
-            error: "Failed create shop or photo",
-          };
-        } else {
+          });
           return {
             ok: true,
+            shop,
+          };
+        } catch (e) {
+          return {
+            ok: false,
+            error: e.message,
           };
         }
       }

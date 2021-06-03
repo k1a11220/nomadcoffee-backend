@@ -1,17 +1,7 @@
-import { gql } from "apollo-server-express";
+import { gql } from "apollo-server-core";
 
 export default gql`
-  type editCoffeeShopResult {
-    ok: Boolean!
-    error: String
-  }
-  type Mutation {
-    editCoffeeShop(
-      id: Int!
-      categories: String
-      name: String
-      latitude: String
-      longitude: String
-    ): editCoffeeShopResult!
+  type Query {
+    seeCoffeeShop(id: Int!): CoffeeShop
   }
 `;

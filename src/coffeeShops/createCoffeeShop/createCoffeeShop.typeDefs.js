@@ -1,15 +1,18 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-core";
 
 export default gql`
   type createCoffeeShopResult {
     ok: Boolean!
     error: String
+    shop: CoffeeShop
   }
   type Mutation {
     createCoffeeShop(
-      name: String!
-      url: String!
-      category: String!
-    ): createCoffeeShopResult!
+      coffeeShopName: String!
+      latitude: String
+      longitude: String
+      categories: [String]
+      photos: [String]
+    ): createCoffeeShopResult
   }
 `;
