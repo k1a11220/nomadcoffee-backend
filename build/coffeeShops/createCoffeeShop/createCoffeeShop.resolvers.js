@@ -4,51 +4,30 @@
 
 // export default {
 //   Mutation: {
-//     editCoffeeShop: protectedResolver(
+//     createCoffeeShop: protectedResolver(
 //       async (
 //         _,
-//         { id, name, latitude, longitude, categories, photos },
+//         { coffeeShopName, latitude, longitude, categories, photos },
 //         { loggedInUser }
 //       ) => {
 //         try {
-//           const oldShop = await client.coffeeShop.findFirst({
-//             where: {
-//               id,
-//               userId: loggedInUser.id,
-//             },
-//             include: {
-//               categories: {
-//                 select: {
-//                   name: true,
-//                 },
-//               },
-//               photos: {
-//                 select: {
-//                   id: true,
-//                 },
-//               },
-//             },
-//           });
-//           if (!oldShop) {
-//             throw new Error("Coffee shop not found.");
-//           }
-//           const shop = await client.coffeeShop.update({
-//             where: {
-//               id,
-//             },
+//           const shop = await client.coffeeShop.create({
 //             data: {
-//               ...(name && { name }),
+//               name: coffeeShopName,
+//               user: {
+//                 connect: {
+//                   id: loggedInUser.id,
+//                 },
+//               },
 //               ...(latitude && { latitude }),
 //               ...(longitude && { longitude }),
 //               ...(categories && {
 //                 categories: {
-//                   disconnect: oldShop.categories,
 //                   connectOrCreate: processCategories(categories),
 //                 },
 //               }),
 //               ...(photos && {
 //                 photos: {
-//                   disconnect: oldShop.photos,
 //                   connectOrCreate: processPhotos(photos),
 //                 },
 //               }),
@@ -56,6 +35,7 @@
 //           });
 //           return {
 //             ok: true,
+//             shop,
 //           };
 //         } catch (e) {
 //           return {
